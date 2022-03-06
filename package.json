@@ -16,9 +16,7 @@
     "serve-favicon": "^2.5.0"
   },
   "scripts": {
-    "install-mkcert": "brew install mkcert && brew install nss && mkcert -install",
-    "generate-mkcert": "mkdir mkcert cd mkcert && mkcert localhost && cd ..",
-    "build": "yarn run install-mkcert && yarn run generate-mkcert && next build",
+    "build": "next build",
     "dev": "nodemon index.js",
     "start": "NODE_ENV=production node index.js"
   },
