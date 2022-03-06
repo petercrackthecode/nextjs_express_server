@@ -18,9 +18,12 @@
   "scripts": {
     "build": "next build",
     "dev": "nodemon index.js",
-    "start": "NODE_ENV=production node index.js"
+    "start": "NODE_ENV=production node index.js",
+    "lint": "next lint"
   },
   "devDependencies": {
+    "eslint": "<8.0.0",
+    "eslint-config-next": "12.1.0",
     "nodemon": "^2.0.15"
   }
 }
