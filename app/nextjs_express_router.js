@@ -1,6 +1,7 @@
+// This class is used to route requests
 class NextjsExpressRouter {
-  constructor(express, next) {
-    this.express = express
+  constructor(app, next) {
+    this.app = app
     this.next = next
   }
 
@@ -11,26 +12,26 @@ class NextjsExpressRouter {
   }
 
   initApi() {
-    return (new (require("./routes/api.js"))(this.express)).init()
+    return new (require("./routes/api.js"))(this.app).init()
   }
 
   initPages() {
-    return (new (require("./routes/pages.js"))(this.express, this.next)).init()
+    return new (require("./routes/pages.js"))(this.app, this.next).init()
   }
 
   initErrors() {
     // catch 404 and forward to error handler
-    this.express.use((req, res, next) => {
-      const err = new Error('Not Found')
+    this.app.use((_, __, next) => {
+      const err = new Error("Not Found")
       err.status = 404
       next(err)
     })
 
-    this.express.use((err, req, res, next) => {
+    this.app.use((err, req, res, next) => {
       res.status(err.status || 500)
       res.locals.error = err
       res.locals.errorDescription = err.message
-      this.next.render(req, res, "/_error", {  })
+      this.next.render(req, res, "/_error", {})
     })
   }
 }

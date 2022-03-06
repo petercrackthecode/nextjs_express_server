@@ -5,17 +5,15 @@ class Api {
   }
 
   init() {
-    this.express.get("/api/get", (req, res) => {
-      res.send({  i: this.i })
+    this.express.get("/api/get", (_, res) => {
+      res.send({ i: this.i })
     })
 
-    this.express.post("/api/increment", (req, res) => {
+    this.express.post("/api/increment", (_, res) => {
       this.i++
       res.send({ i: this.i })
     })
   }
-
-
 }
 
 module.exports = Api
