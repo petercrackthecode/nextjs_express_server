@@ -8,8 +8,6 @@ class Middleware {
   }
 
   async init() {
-    this.app.use(express.json())
-    this.app.use(express.urlencoded({ extended: false }))
     this.app.use(favicon(path.join(__dirname, "..", "public", "favicon.png")))
 
     this.initErrors()

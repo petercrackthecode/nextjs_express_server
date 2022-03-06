@@ -1,10 +1,10 @@
-const express = require("express")
 const next = require("next")
 const NextjsExpressRouter = require("./nextjs_express_router")
 const Middleware = require("./middleware")
+const expressApp = require("./backend")
 
-const httpServer = (express) => {
-  return require("http").createServer(express)
+const httpServer = (app) => {
+  return require("http").createServer(app)
 }
 
 const httpsServer = (app) => {
@@ -20,7 +20,7 @@ const httpsServer = (app) => {
 class Server {
   constructor(port) {
     this.port = port
-    this.app = express()
+    this.app = expressApp
     this.next = next({ dev: process.env.NODE_ENV !== "production", hostname: "localhost", port: this.port })
     this.middleware = new Middleware(this.app)
     this.router = new NextjsExpressRouter(this.app, this.next)
@@ -30,7 +30,7 @@ class Server {
     await this.next.prepare()
     await this.middleware.init()
     await this.router.init()
-    this.server = httpsServer(this.app)
+    this.server = httpServer(this.app)
     this.server.listen(process.env.EXPRESS_PORT)
   }
 }
